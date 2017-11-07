@@ -1,5 +1,10 @@
 # ReactAuction
 
+## Prerequisites
+
+- [AuctionPlace](https://github.com/idasys1/AuctionPlace) must be running at localhost
+- Node.js for installing this project
+
 ## Configuration
 
 Clone the project
@@ -20,7 +25,6 @@ npm start
 
 Push new changes
 ```
-git add * & git commit -m "no message" & git push
+git add * & git commit -m "no message"
+git push
 ```
-
-To get products from the java app the java app must run and you need to enable CORS
