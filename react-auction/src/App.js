@@ -8,7 +8,8 @@ class App extends Component {
     super(props);
     this.state = {
       products: [],
-      formatTime: this.formatTime.bind(this)
+      formatTime: this.formatTime.bind(this),
+      checkTime: this.checkTime.bind(this)
     }
     this.sendRequest();
   }
@@ -31,9 +32,9 @@ class App extends Component {
              <th>Highest bid</th>
              <th>Highest bidder</th>
           </tr>
-
         {
           this.state.products.map(function(product, index){
+            if (product.status["#text"] === "PUBLISHED" && this.state.checkTime(product)) {
             return (
               <tr key={index}>
                 <td><img className="img-product" src={product.picture["#text"]}/></td>
@@ -43,68 +44,12 @@ class App extends Component {
                 <td>{product.currentBid.bidder.name["#text"]}</td>
               </tr>
             );
+          }
           }.bind(this))
         }
         </tbody>
         </table>
         </div>
-
-          {/* <c:forEach items="${productController.products}" var="product" varStatus="loop">
-                <c:if test="${productController.isPublished(product) 
-                              and productController.filter(product)}">
-            <tr>
-                <td><img class="img-product" src="${product.picture}"/></td>
-                <h:form><td>
-                        <h:commandLink action="product_details">${product.name}
-                            <f:actionListener binding="#{productController.setProduct(product)}" />
-                        </h:commandLink></td></h:form>
-                <td>${productController.formatTimeLeft(product)}</td>
-                <td>${product.currentBid.amount}</td>
-               <c:if test = "${product.currentBid.bidder.email == customerController.customer.email}">
-                    <td style="color: green">${product.currentBid.bidder.name}</td>
-                </c:if>
-                <c:if test = "${product.currentBid.bidder.email != customerController.customer.email}">
-                    <td>${product.currentBid.bidder.name}</td>
-                </c:if>
-                
-                <h:form><td>
-                        <h:commandButton id="submit" 
-                                         value="Place a bid"
-                                         action="#{customerController.navigateIfLogged('place_bid')}">
-                            <f:actionListener binding="#{productController.setProduct(product)}" />
-                        </h:commandButton>
-                    </td></h:form>
-            </tr>
-            </c:if>
-                
-                
-                
-                
-                <c:if test="${productController.isSold(product) and 
-                              product.currentBid.bidder.email
-                              == customerController.customer.email
-                              and productController.filter(product)}">
-            <tr>
-                <td><img class="img-product" src="${product.picture}"/></td>
-                <h:form><td>
-                        <h:commandLink action="product_details">${product.name}
-                            <f:actionListener binding="#{productController.setProduct(product)}" />
-                        </h:commandLink></td></h:form>
-                <td>${productController.formatTimeLeft(product)}</td>
-                <td>${product.currentBid.amount}</td>
-                <td style="color: green">You won</td>
-                
-                <h:form><td>
-                        <h:commandButton id="submit" 
-                                         value="Give feedback"
-                                         action="#{customerController.navigateIfLogged('product_details')}">
-                            <f:actionListener binding="#{productController.setProduct(product)}" />
-                        </h:commandButton>
-                    </td></h:form>
-            </tr>
-            </c:if>
-        </c:forEach>
-         */}
       </div>
     );
   }
@@ -116,7 +61,6 @@ class App extends Component {
           var parser = new DOMParser();
           var xml = parser.parseFromString(xmlhttp.responseText, "text/xml");
           var json = this.xmlToJson(xml);
-  
           this.setState({ 
             products: json.products.product
           });
@@ -186,6 +130,10 @@ minutes = (minutes < 10) ? "0" + minutes : minutes;
 seconds = (seconds < 10) ? "0" + seconds : seconds;
 
 return days + ":" + hours + ":" + minutes + ":" + seconds;
+}
+
+checkTime(product) {
+  return (new Date(product.whenBiddingCloses["#text"]).getTime() - new Date().getTime()) > 0;
 }
 
 }
