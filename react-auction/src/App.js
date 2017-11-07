@@ -23,32 +23,32 @@ class App extends Component {
         </header>
 
         <div className="table-products">
-        <table cellSpacing="0">
-          <tbody>
-          <tr>
-             <th>Picture</th>
-             <th>Name</th>
-             <th>Time left (dd:hh:mm:ss)</th>
-             <th>Highest bid</th>
-             <th>Highest bidder</th>
-          </tr>
-        {
-          this.state.products.map(function(product, index){
-            if (product.status["#text"] === "PUBLISHED" && this.state.checkTime(product)) {
-            return (
-              <tr key={index}>
-                <td><img className="img-product" src={product.picture["#text"]}/></td>
-                <td>{product.name["#text"]}</td>
-                <td>{this.state.formatTime(product)}</td>
-                <td>{product.currentBid.amount["#text"]}</td>
-                <td>{product.currentBid.bidder.name["#text"]}</td>
+          <table cellSpacing="0">
+            <tbody>
+              <tr>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Time left (dd:hh:mm:ss)</th>
+                <th>Highest bid</th>
+                <th>Highest bidder</th>
               </tr>
-            );
-          }
-          }.bind(this))
-        }
-        </tbody>
-        </table>
+              {
+                this.state.products.map(function (product, index) {
+                  if (product.status["#text"] === "PUBLISHED" && this.state.checkTime(product)) {
+                    return (
+                      <tr key={index}>
+                        <td><img className="img-product" src={product.picture["#text"]} alt={product.name["#text"]}/></td>
+                        <td>{product.name["#text"]}</td>
+                        <td>{this.state.formatTime(product)}</td>
+                        <td>{product.currentBid.amount["#text"]}</td>
+                        <td>{product.currentBid.bidder.name["#text"]}</td>
+                      </tr>
+                    );
+                  }
+                }.bind(this))
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     );
@@ -56,19 +56,19 @@ class App extends Component {
 
   sendRequest() {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-          var parser = new DOMParser();
-          var xml = parser.parseFromString(xmlhttp.responseText, "text/xml");
-          var json = this.xmlToJson(xml);
-          this.setState({ 
-            products: json.products.product
-          });
-          
+        var parser = new DOMParser();
+        var xml = parser.parseFromString(xmlhttp.responseText, "text/xml");
+        var json = this.xmlToJson(xml);
+        this.setState({
+          products: json.products.product
+        });
+
       }
     }.bind(this);
-    
-    setInterval(function(){ 
+
+    setInterval(function () {
       xmlhttp.open("GET", "http://localhost:8080/AuctionPlace-war/webresources/entities.product", true);
       xmlhttp.send();
     }, 1000);
@@ -80,61 +80,61 @@ class App extends Component {
 
   // Changes XML to JSON
   xmlToJson(xml) {
-	
-	var obj = {};
 
-	if (xml.nodeType === 1) {
-		if (xml.attributes.length > 0) {
-		obj["@attributes"] = {};
-			for (var j = 0; j < xml.attributes.length; j++) {
-				var attribute = xml.attributes.item(j);
-				obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-			}
-		}
-	} else if (xml.nodeType === 3) { // text
-		obj = xml.nodeValue;
-	}
+    var obj = {};
 
-	// do children
-	if (xml.hasChildNodes()) {
-		for(var i = 0; i < xml.childNodes.length; i++) {
-			var item = xml.childNodes.item(i);
-			var nodeName = item.nodeName;
-			if (typeof(obj[nodeName]) === "undefined") {
-				obj[nodeName] = this.xmlToJson(item);
-			} else {
-				if (typeof(obj[nodeName].push) === "undefined") {
-					var old = obj[nodeName];
-					obj[nodeName] = [];
-					obj[nodeName].push(old);
-				}
-				obj[nodeName].push(this.xmlToJson(item));
-			}
-		}
-	}
-	return obj;
-};
+    if (xml.nodeType === 1) {
+      if (xml.attributes.length > 0) {
+        obj["@attributes"] = {};
+        for (var j = 0; j < xml.attributes.length; j++) {
+          var attribute = xml.attributes.item(j);
+          obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+        }
+      }
+    } else if (xml.nodeType === 3) { // text
+      obj = xml.nodeValue;
+    }
+
+    // do children
+    if (xml.hasChildNodes()) {
+      for (var i = 0; i < xml.childNodes.length; i++) {
+        var item = xml.childNodes.item(i);
+        var nodeName = item.nodeName;
+        if (typeof (obj[nodeName]) === "undefined") {
+          obj[nodeName] = this.xmlToJson(item);
+        } else {
+          if (typeof (obj[nodeName].push) === "undefined") {
+            var old = obj[nodeName];
+            obj[nodeName] = [];
+            obj[nodeName].push(old);
+          }
+          obj[nodeName].push(this.xmlToJson(item));
+        }
+      }
+    }
+    return obj;
+  };
 
 
-formatTime(product) {
-  var millis = new Date(product.whenBiddingCloses["#text"]).getTime() - new Date().getTime();
+  formatTime(product) {
+    var millis = new Date(product.whenBiddingCloses["#text"]).getTime() - new Date().getTime();
 
-  var seconds = parseInt((millis/1000)%60, 10);
-  var minutes = parseInt((millis/(1000*60))%60, 10);
-  var hours = parseInt((millis/(1000*60*60))%24, 10);
-  var days = parseInt((millis/(1000*60*60*24))%365, 10);
+    var seconds = parseInt((millis / 1000) % 60, 10);
+    var minutes = parseInt((millis / (1000 * 60)) % 60, 10);
+    var hours = parseInt((millis / (1000 * 60 * 60)) % 24, 10);
+    var days = parseInt((millis / (1000 * 60 * 60 * 24)) % 365, 10);
 
-days = (days < 10) ? "0" + days : days;
-hours = (hours < 10) ? "0" + hours : hours;
-minutes = (minutes < 10) ? "0" + minutes : minutes;
-seconds = (seconds < 10) ? "0" + seconds : seconds;
+    days = (days < 10) ? "0" + days : days;
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-return days + ":" + hours + ":" + minutes + ":" + seconds;
-}
+    return days + ":" + hours + ":" + minutes + ":" + seconds;
+  }
 
-checkTime(product) {
-  return (new Date(product.whenBiddingCloses["#text"]).getTime() - new Date().getTime()) > 0;
-}
+  checkTime(product) {
+    return (new Date(product.whenBiddingCloses["#text"]).getTime() - new Date().getTime()) > 0;
+  }
 
 }
 
