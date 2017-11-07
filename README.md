@@ -1,19 +1,26 @@
 # ReactAuction
 
-// Clone project
+## Configuration
 
+Clone the project
+```
 git clone https://github.com/95danlos/ReactAuction.git
+```
 
-// install node_modules
+Download and install dependencies
+```
+cd desktop/react/ReactAuction/react-auction
 npm install
+```
 
-// Run projects
+Run the project
+```
+npm start
+```
 
-cd desktop/react/ReactAuction/react-auction & npm start
-
-// Push new changes
-
+Push new changes
+```
 git add * & git commit -m "no message" & git push
+```
 
-
-// To get products from the java app the java app must run and you need to enable CORS
+To get products from the java app the java app must run and you need to enable CORS
