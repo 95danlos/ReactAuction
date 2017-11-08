@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - [AuctionPlace](https://github.com/idasys1/AuctionPlace) must be running at localhost
-- Node.js for installing this project
+- Node.js for installing dependencies and running this project
 
 ## Configuration
 
@@ -25,6 +25,7 @@ npm start
 
 Push new changes
 ```
-git add * & git commit -m "no message"
+git add *
+git commit -m "no message"
 git push
 ```
