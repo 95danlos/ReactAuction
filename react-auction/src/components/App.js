@@ -4,6 +4,7 @@ import './../styles/App.css';
 import Utils from './../utils/utils.js';
 import Auction from './Auction.js';
 import ProductsDetails from './ProductDetails.js';
+import Navbar from './Navbar.js';
 
 class App extends Component {
 
@@ -23,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Navbar/>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
