@@ -10,9 +10,7 @@ class Loggedin extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    // TODO logout functionality
-    this.props.handleChange(this.props.username, false);
+    this.props.onSubmit(null, null, false);
   }
 
   render() {
