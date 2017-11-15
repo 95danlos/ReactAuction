@@ -27,7 +27,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSubmit(this.state.username, this.state.password, true);
+    this.props.onLogin(this.state.username, this.state.password);
   }
 
   validate() {
