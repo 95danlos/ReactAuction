@@ -23,24 +23,29 @@ class App extends Component {
         });
     });
 
-    this.onLogin = this.onLogin.bind(this);
-    this.onLogout = this.onLogout.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onLogin(username, password) {
-    this.setState({
-      username, 
-      password, 
-      isLoggedIn: true
-    });
-  }
+  onSubmit(username, password, isLoggingIn) {
+    if (isLoggingIn) {
+      // TODO log in
+      
+      // if successful
+      this.setState({
+        username, 
+        password, 
+        isLoggedIn: true
+      });
+    } else {
+      // TODO log out
 
-  onLogout() {
-    this.setState({
-      username: null, 
-      password: null, 
-      isLoggedIn: false
-    });
+      // if successful
+      this.setState({
+        username: null, 
+        password: null, 
+        isLoggedIn: false
+      });
+    }
   }
 
   render() {
@@ -49,8 +54,7 @@ class App extends Component {
         <Navbar 
           username={this.state.username} 
           isLoggedIn={this.state.isLoggedIn} 
-          onLogin={this.onLogin} 
-          onLogout={this.onLogout}
+          onSubmit={this.onSubmit} 
         />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />

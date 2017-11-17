@@ -8,9 +8,9 @@ class Navbar extends Component {
   render() {
     let loginModule = null;
     if (this.props.isLoggedIn) {
-      loginModule = <Loggedin username={this.props.username} onLogout={this.props.onLogout} />;
+      loginModule = <Loggedin username={this.props.username} onSubmit={this.props.onSubmit} />;
     } else {
-      loginModule = <Login onLogin={this.props.onLogin} />;
+      loginModule = <Login onSubmit={this.props.onSubmit} />;
     }
     
     return (

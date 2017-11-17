@@ -10,7 +10,7 @@ class Loggedin extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onLogout();
+    this.props.onSubmit(null, null, false);
   }
 
   render() {
