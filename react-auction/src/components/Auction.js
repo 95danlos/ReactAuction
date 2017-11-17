@@ -38,11 +38,7 @@ class Auction extends Component {
                 <td>{product.name["#text"]}</td>
                 <td>{Utils.formatTime(product)}</td>
                 <td>{product.currentBid.amount["#text"]}</td>
-                {
-                  product.currentBid.bidder != null 
-                  ? <td>{product.currentBid.bidder.name["#text"]}</td>
-                  : <td>No bidder</td>
-                }
+                <td>{product.currentBid.bidder.name["#text"]}</td>
               </tr>
             );
           }
