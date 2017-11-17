@@ -11,10 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
-      username: null,
-      password: null,
-      isLoggedIn: false
+      products: []
     }
     Utils.getProducts(Products => {
       this.setState({ 
@@ -22,40 +19,12 @@ class App extends Component {
         show: false
         });
     });
-
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onSubmit(username, password, isLoggingIn) {
-    if (isLoggingIn) {
-      // TODO log in
-      
-      // if successful
-      this.setState({
-        username, 
-        password, 
-        isLoggedIn: true
-      });
-    } else {
-      // TODO log out
-
-      // if successful
-      this.setState({
-        username: null, 
-        password: null, 
-        isLoggedIn: false
-      });
-    }
   }
 
   render() {
     return (
       <div>
-        <Navbar 
-          username={this.state.username} 
-          isLoggedIn={this.state.isLoggedIn} 
-          onSubmit={this.onSubmit} 
-        />
+        <Navbar/>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>

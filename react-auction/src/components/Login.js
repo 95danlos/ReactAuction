@@ -27,7 +27,9 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSubmit(this.state.username, this.state.password, true);
+
+    // TODO login functionality
+    this.props.handleChange(this.state.username, true);
   }
 
   validate() {
