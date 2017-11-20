@@ -4,10 +4,21 @@ import Utils from './../utils/utils.js';
 
 class Auction extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchString: ""
+    }
+  }
+
   render() {
     return (
       <div>
         <div className="table-products">
+        <div className="search-field">
+        <input type="text" name="search" value={this.state.searchString} 
+                    placeholder="Search" className="input" onChange={this.updateSearchString.bind(this)} /><br/>
+        </div>
         <table cellSpacing="0">
           <tbody>
           <tr>
@@ -20,7 +31,7 @@ class Auction extends Component {
         {
           this.props.products.map(function(product, index){
             if (product.status["#text"] === "PUBLISHED" && Utils.checkTime(product) 
-              && product.currentBid.bidder) {
+              && product.currentBid.bidder && product.name["#text"].toUpperCase().includes(this.state.searchString.toUpperCase())) {
                 
                 var rowCss = ""
                 var bidder 
@@ -41,7 +52,7 @@ class Auction extends Component {
                     <td>{product.name["#text"]}</td>
                     <td>{Utils.formatTime(product)}</td>
                     <td>{product.currentBid.amount["#text"]}</td>
-                    <td>{bidder}</td>
+                    {bidder}
                   </tr>
                 );
           }
@@ -52,6 +63,12 @@ class Auction extends Component {
         </div>
       </div>
     );
+  }
+
+  updateSearchString(event) {
+    this.setState({
+      searchString: event.target.value
+    });
   }
 
 }

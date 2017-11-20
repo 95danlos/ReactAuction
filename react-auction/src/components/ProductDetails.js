@@ -8,9 +8,7 @@ class ProductDetails extends Component {
     super(props);
     this.state = {
       amount: "",
-      maxAmount: "",
-      error: "",
-      automaticBidding: false
+      error: ""
     }
   }
 
@@ -35,10 +33,6 @@ class ProductDetails extends Component {
                 <input type="text" name="amount" value={this.state.amount} 
                     placeholder="$ 0.0" className="input" onChange={this.updateAmount.bind(this)} /><br/>
                 <div className="bid-error">
-                <button className="button-toggle" onClick={this.toggleAutomaticBidding.bind(this)}>
-                  Enable / Disable Automatic Bidding
-                </button>
-                {this.automaticBidding()}
                   {this.state.error}
                 </div>
                 <button className="button-green" onClick={this.sendBid.bind(this)}>
@@ -68,12 +62,6 @@ class ProductDetails extends Component {
     });
   }
 
-  updateMaxAmount(event) {
-    this.setState({
-      maxAmount: event.target.value
-    });
-  }
-
   sendBid(event) {
     this.props.getCredentials((email, password, isLogged) => {
       if(isLogged) {
@@ -94,23 +82,6 @@ class ProductDetails extends Component {
         });
       }
     });
-  }
-
-  toggleAutomaticBidding() {
-    this.setState({
-      automaticBidding: !this.state.automaticBidding
-    });
-  }
-
-  automaticBidding() {
-    if(this.state.automaticBidding) {
-      return (
-        <div>
-        <input type="text" name="maxAmount" value={this.state.maxAmount} 
-          placeholder="$ 0.0" className="input" onChange={this.updateMaxAmount.bind(this)} /><br/>
-        </div>
-      );
-    }
   }
 
 }
