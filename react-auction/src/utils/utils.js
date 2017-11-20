@@ -2,6 +2,19 @@
     
     
 var Utils = {
+
+        // Send email and password to the server and recives login confirmation
+        login: function(email, password, callback) {
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+              callback(xmlhttp.responseText);
+            }
+          };
+          xmlhttp.open("POST", "http://localhost:8080/AuctionPlace-war/webresources/entities.product/login", true);
+          xmlhttp.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
+          xmlhttp.send();
+        },
     
         // Requests Products each sec
         getProducts: function(callback) {
@@ -19,6 +32,23 @@ var Utils = {
               xmlhttp.send();
             }, 1000);
           },
+
+        
+        // Send a new bid on a product
+        sendBid: function(productId, amount, email, password, callback) {
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+              callback(xmlhttp.responseText);
+            }
+          };
+          xmlhttp.open("PUT", "http://localhost:8080/AuctionPlace-war/webresources/entities.product/sendBid?id="
+          + productId + "&amount=" + amount, true);
+          xmlhttp.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
+          //xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+          xmlhttp.send();
+        },
+        
         
         // Changes XML to JSON
         xmlToJson: function(xml) {

@@ -31,6 +31,88 @@
 
 
 /* 
+// Login css 
+// -----------------------------------------------------------------------------------------
+*/
+
+
+
+.login-window {
+	position: absolute;
+	height: 70px;
+	width: 35%;
+	left: 62%;
+}
+
+.register-link {
+	position: absolute;
+	color: white;
+	font-size: 15px;
+	left: 80%;
+	top: 100%;	
+}
+
+.login-input[type=text] {
+    position: absolute;
+	width: 35%;
+	left: 0%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+.login-input[type=password] {
+    position: absolute;
+	width: 35%;
+	left: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.button-login {
+    background-color: #4CAF50;
+	color: white;
+	position: absolute;
+	width: 20%;
+	left: 80%;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+.login-error {
+	position: absolute;
+	color: red;
+	font-size: 20px;
+	left: 0%;
+	top: 100%;
+}
+
+.bid-error {
+	color: red;
+	font-size: 20px;
+	margin: 8px 0;
+}
+
+.email {
+	position: absolute;
+	color: white;
+	font-size: 20px;
+	left: calc(80% - 180px);
+	top: 25%;
+}
+
+
+
+
+/* 
 // Auction css 
 // -----------------------------------------------------------------------------------------
 */
@@ -44,8 +126,9 @@
  
  .img-product-big {
 	border-radius: 50%;
-	height: 200px;
-	width: 200px;
+	height: 100px;
+	width: 100px;
+	margin: 20px;
  }
  
  .table-products {
@@ -76,6 +159,10 @@
 	 background-color: whitesmoke; 
  }
 
+ .green-row {
+	 color: green;
+ }
+
  .window {
 	display: flex;
 	height: 100%;
@@ -92,4 +179,60 @@
 	box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
 	height: 100%;
 	width: 30%;
+}
+
+.product-info-name {
+	font-size: 25px;
+	font-weight: 700;
+	margin-top: 20px;
+}
+
+.product-info-label {
+	font-size: 17px;
+	font-weight: 700;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.product-info-text {
+	margin-bottom: 20px;
+}
+
+.input[type=text], [type=secret] {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.button-green {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+	width: 90%;
+	font-size: 20px;
+}
+
+.button-green:hover {
+    opacity: 0.8;
+}
+
+.button-toggle {
+    background-color: blueviolet;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+	width: 50%;
+	font-size: 16px;
+}
+
+.button-toggle:hover {
+    opacity: 0.8;
 }
